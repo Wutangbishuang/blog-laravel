@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="style/css/ch-ui.admin.css">
-	<link rel="stylesheet" href="style/font/css/font-awesome.min.css">
-</head>
-<body>
+@extends('layouts.admin')
+@section('content')
 	<!--面包屑导航 开始-->
 	<div class="crumb_warp">
 		<!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-		<i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">商品管理</a> &raquo; 添加商品
+		<i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo;系统基本信息
 	</div>
 	<!--面包屑导航 结束-->
 	
@@ -36,7 +30,7 @@
         <div class="result_content">
             <ul>
                 <li>
-                    <label>操作系统</label><span>WINNT</span>
+                    <label>操作系统</label><span>{{PHP_OS}}</span>
                 </li>
                 <li>
                     <label>运行环境</label><span>Apache/2.2.21 (Win64) PHP/5.3.10</span>
@@ -80,6 +74,4 @@
         </div>
     </div>
 	<!--结果集列表组件 结束-->
-
-</body>
-</html>
+@endsection

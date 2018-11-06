@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Input;
 
 require_once 'resources/org/code/Code.class.php';
 
-class LoginController extends CommonContriller
+class LoginController extends CommonController
 {
     public function login()
     {
@@ -26,7 +26,7 @@ class LoginController extends CommonContriller
                 return back()->with('msg','用户名或者密码错误!!');
             }
             session(['user'=>$user]);
-            dd(session('user'));
+            return redirect('admin/index');
         }else{
             return view('admin.login');
         }
