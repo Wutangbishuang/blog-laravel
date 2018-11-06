@@ -44,4 +44,9 @@ class LoginController extends CommonController
         echo Crypt::encrypt($str);
     }
 
+    public function quit()
+    {
+        session(['user'=>null]);
+        return redirect('admin/login');
+    }
 }
