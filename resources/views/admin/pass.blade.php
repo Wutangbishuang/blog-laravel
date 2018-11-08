@@ -13,9 +13,13 @@
         <h3>修改密码</h3>
         @if(count($errors)>0)
             <div class="mark">
-                @foreach($errors->all() as $error)
-                    <p>{{$error}}</p>
-                @endforeach
+                @if(is_object($errors))
+                    @foreach($errors->all() as $error)
+                        <p>{{$error}}</p>
+                    @endforeach
+                @else
+                    <p>{{$errors}}</p>
+                @endif
             </div>
         @endif
     </div>
@@ -25,8 +29,6 @@
 <div class="result_wrap">
     <form method="post" action="">
         {{csrf_field()}}
-
-
         <table class="add_tab">
             <tbody>
             <tr>
