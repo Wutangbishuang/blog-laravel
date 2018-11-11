@@ -124,9 +124,22 @@ class CategoryController extends CommonController
     }
 
     //delete.admin/category/{category}  删除单个分类
-    public function destrop()
+    public function destroy($cate_id)
     {
-
+        $re = Category::where('cate_id',$cate_id)->delete();
+        Category::where('cate_pid',$cate_id)->update(['cate_pid'=>0]);
+        if($re){
+            $data = [
+              'status'=>'0',
+              'msg'=>'分类删除成功',
+            ];
+        }else{
+            $data = [
+                'status'=>'1',
+                'msg'=>'分类删除失败',
+            ];
+        }
+        return $data;
     }
 
     //get.admin/category/{category}  显示单个分类信息
