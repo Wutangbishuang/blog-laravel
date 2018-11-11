@@ -9,5 +9,10 @@ use App\Http\Controllers\Controller;
 
 class CommonController extends Controller
 {
-
+    //图片上传
+    public function upload()
+    {
+        $input = Input::get('Filedata');
+        dd($input);
+    }
 }

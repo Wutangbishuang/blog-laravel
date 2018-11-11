@@ -25,4 +25,5 @@ Route::group(['middleware'=>['admin.login'],'prefix'=>'admin','namespace'=>'Admi
     Route::resource('category','CategoryController');
     Route::any('pass','IndexController@pass');
     Route::resource('article','ArtController');
+    Route::any('upload','CommonController@upload');
 });
