@@ -9,6 +9,7 @@ class Category extends Model
     protected $table = 'categorys';
     protected $primaryKey = 'cate_id';
     public $timestamps = false;
+    protected $guarded=[];
 
     public function tree()
     {

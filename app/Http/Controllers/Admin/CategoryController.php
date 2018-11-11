@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends CommonController
 {
@@ -72,16 +73,34 @@ class CategoryController extends CommonController
         return $data;
     }
 
-    //get。admin/category
+    //get。admin/category  添加分类提交
     public function store()
     {
+        $input = Input::except('_token');
+        $rules = [
+            'cate_name'=>'required',
+        ];
+        $message = [
+            'cate_name.required'=>'分类名称不能为空',
+        ];
+        $validator = Validator::make($input,$rules,$message);
+        if($validator->passes()){
+            if(Category::create($input)){
+                return redirect('admin/category');
+            }else{
+                return back()->with('errors','数据提交异常');
+            }
 
+        } else {
+            return back()->withErrors($validator);
+        }
     }
 
     //get。admin/category/create  添加分类
     public function create()
     {
-
+        $data = Category::where('cate_pid',0)->get();
+        return view('admin/category/add',compact('data'));
     }
 
     //get.admin/category/{category}  显示单个分类信息
