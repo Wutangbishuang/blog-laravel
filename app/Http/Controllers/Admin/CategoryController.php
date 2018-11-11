@@ -103,10 +103,24 @@ class CategoryController extends CommonController
         return view('admin/category/add',compact('data'));
     }
 
-    //get.admin/category/{category}  显示单个分类信息
-    public function show()
+    //get.admin/category/{category}/edit  编辑分类
+    public function edit($cate_id)
     {
+        $filed = Category::find($cate_id);
+        $data = Category::where('cate_pid','0')->get();
+        return view('admin.category.edit',compact('filed','data'));
+    }
 
+    //put.admin/category  更新分类
+    public function update($cate_id)
+    {
+        $input = Input::except('_token','_method');
+        $rs = Category::where('cate_id',$cate_id)->update($input);
+        if($rs){
+            return redirect('admin/category');
+        }else{
+            return back()->with('errors','数据异常，暂时无法修改');
+        }
     }
 
     //delete.admin/category/{category}  删除单个分类
@@ -115,15 +129,11 @@ class CategoryController extends CommonController
 
     }
 
-    //put.admin/category  更新分类
-    public function update()
+    //get.admin/category/{category}  显示单个分类信息
+    public function show()
     {
 
     }
 
-    //get.admin/category/{category}/edit  编辑分类
-    public function edit()
-    {
 
-    }
 }
