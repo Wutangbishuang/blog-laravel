@@ -20,10 +20,15 @@ Route::get('admin/code','Admin\LoginController@code');
 Route::group(['middleware'=>['admin.login'],'prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('index','IndexController@index');
     Route::get('info','IndexController@info');
-    Route::get('quit','LoginController@quit');
-    Route::post('cate/changeorder','CategoryController@changeOrder');
-    Route::resource('category','CategoryController');
     Route::any('pass','IndexController@pass');
+    Route::get('quit','LoginController@quit');
+
+
+    Route::post('cate/changeorder','CategoryController@changeOrder');
+
+    Route::any('upload','CommonController@upload');//缩略图失败
+
     Route::resource('article','ArtController');
-    Route::any('upload','CommonController@upload');
+
+    Route::resource('category','CategoryController');
 });
