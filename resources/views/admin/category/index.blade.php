@@ -90,12 +90,7 @@
                     layer.msg(data.msg,{icon:5});
                 }
             });
-            /*layer.msg('的确很重要', {icon: 1});*/
         }, function(){
-            /*layer.msg('也可以这样', {
-                time: 20000, //20s后自动关闭
-                btn: ['明白了', '知道了']
-            });*/
         });
     }
 

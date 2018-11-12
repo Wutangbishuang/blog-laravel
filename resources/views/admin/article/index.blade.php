@@ -16,9 +16,8 @@
             </div>
             <div class="result_content">
                 <div class="short_wrap">
-                    <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-                    <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                    <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+                    <a href="{{url('admin/article/create')}}"><i class="fa fa-plus"></i>添加文章</a>
+                    <a href="{{url('admin/article')}}"><i class="fa fa-recycle"></i>全部文章</a>
                 </div>
             </div>
             <!--快捷导航 结束-->
@@ -45,8 +44,8 @@
                         <td>{{$v->art_editor}}</td>
                         <td>{{date('Y-m-d H:i:s',$v->art_time)}}</td>
                         <td>
-                            <a href="#">修改</a>
-                            <a href="#">删除</a>
+                            <a href="{{url('admin/article/'.$v->art_id.'/edit')}}">修改</a>
+                            <a href="javascript:;" onclick="delCate({{$v->art_id}})">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -65,5 +64,24 @@
             padding:6px 12px;
         }
     </style>
+    <script>
+
+        //删除分类
+        function delCate(art_id){
+            layer.confirm('您确定要删除这篇文章吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $.post("{{url('admin/article/')}}/"+art_id,{'_method':'delete','_token':"{{csrf_token()}}"},function(data){
+                    if(data.status==0){
+                        location.href = location.href;
+                        layer.msg(data.msg,{icon:6});
+                    }else{
+                        layer.msg(data.msg,{icon:5});
+                    }
+                });
+            }, function(){
+            });
+        }
+    </script>
     <!--搜索结果页面 列表 结束-->
 @endsection
