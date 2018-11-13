@@ -31,4 +31,9 @@ Route::group(['middleware'=>['admin.login'],'prefix'=>'admin','namespace'=>'Admi
     Route::resource('article','ArtController');
 
     Route::resource('category','CategoryController');
+
+    Route::resource('links','LinksController');
+    Route::post('links/changeorder','LinksController@changeOrder');
+
+    Route::resource('navs','navsController');
 });
