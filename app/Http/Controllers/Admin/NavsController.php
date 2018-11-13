@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Navs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class NavsController extends Controller
 {
-    //get.admin/nsvs 全部友情列表
+    //get.admin/navs 全部友情列表
     public function index()
     {
-        $data = nsvs::orderBy('nav_order','asc')->get();
-        return view('admin.nsvs.index',compact('data'));
+        $data = Navs::orderBy('nav_order','asc')->get();
+        return view('admin.navs.index',compact('data'));
     }
 
     public function changeOrder()
     {
         $input = Input::all();
-        $nav = nsvs::find($input['nav_id']);
+        $nav = Navs::find($input['nav_id']);
         $nav->nav_order = $input['nav_order'];
         $re = $nav->update();
         if($re){
@@ -38,15 +41,16 @@ class NavsController extends Controller
         return $data;
     }
 
-    //get.admin/nsvs/create 添加自定义导航
+    //get.admin/navs/create 添加自定义导航
     public function create()
     {
-        return view('admin/nsvs/add');
+        return view('admin/navs/add');
     }
 
-    //post.admin/nsvs 添加自定义导航提交
+    //post.admin/navs 添加自定义导航提交
     public function store()
     {
+
         $input = Input::except('_token');
         $rules = [
             'nav_name'=>'required',
@@ -58,8 +62,8 @@ class NavsController extends Controller
         ];
         $validator = Validator::make($input,$rules,$message);
         if($validator->passes()){
-            if(nsvs::create($input)){
-                return redirect('admin/nsvs');
+            if(Navs::create($input)){
+                return redirect('admin/navs');
             }else{
                 return back()->with('errors','自定义导航提交异常');
             }
@@ -69,29 +73,30 @@ class NavsController extends Controller
         }
     }
 
-    //get.admin/nsvs/{nav}/edit  编辑自定义导航
+    //get.admin/navs/{nav}/edit  编辑自定义导航
     public function edit($nav_id)
     {
-        $filed = nsvs::find($nav_id);
-        return view('admin.nsvs.edit',compact('filed'));
+        $filed = Navs::find($nav_id);
+        return view('admin.navs.edit',compact('filed'));
     }
 
-    //put.admin/nsvs  更新分类
+    //put.admin/navs  更新分类
     public function update($nav_id)
     {
         $input = Input::except('_token','_method');
-        $rs = nsvs::where('nav_id',$nav_id)->update($input);
+        $rs = Navs::where('nav_id',$nav_id)->update($input);
         if($rs){
-            return redirect('admin/nsvs');
+            return redirect('admin/navs');
         }else{
             return back()->with('errors','自定义导航更新异常，暂时无法修改');
         }
     }
 
-    //delete.admin/nsvs/{nsvs}  删除自定义导航
+    //delete.admin/navs/{navs}  删除自定义导航
     public function destroy($nav_id)
     {
-        $re = nsvs::where('nav_id',$nav_id)->delete();
+
+        $re = Navs::where('nav_id',$nav_id)->delete();
         if($re){
             $data = [
                 'status'=>'0',
