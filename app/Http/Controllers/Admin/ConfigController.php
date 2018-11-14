@@ -31,7 +31,7 @@ class ConfigController extends Controller
                 foreach($arr as $m=>$n){
                     $r = explode('|',$n);
                     $c =$v->conf_content==$r[0]?' checked ':'';
-                    $str .='<input type="radio" name="conf_content" value="'.$r[0].'"'.$c.'>'.$r[1];
+                    $str .='<input type="radio" name="conf_content[]" value="'.$r[0].'"'.$c.'>'.$r[1];
                 }
                 $data[$k]->_html = $str;
                 break;
@@ -135,5 +135,19 @@ class ConfigController extends Controller
     public function show()
     {
         
+    }
+
+    public function changeContent()
+    {
+        $input = Input::all();
+        foreach($input['conf_id'] as $k=>$v){
+            Config::where('conf_id',$v)->update(['conf_content'=>$input['conf_content'][$k]]);
+        }
+        return back();
+    }
+
+    public function putFile()
+    {
+        echo 789;
     }
 }

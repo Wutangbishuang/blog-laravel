@@ -8,7 +8,6 @@
     <!--面包屑配置项 结束-->
 
     <!--搜索结果页面 列表 开始-->
-    <form action="#" method="post">
         <div class="result_wrap">
             <div class="result_title">
                 <h3>配置项列表</h3>
@@ -25,6 +24,8 @@
 
         <div class="result_wrap">
             <div class="result_content">
+                <form action="{{url('admin/config/content')}} " method="post">
+                {{csrf_field()}}
                 <table class="list_tab">
                     <tr>
                         <th class="tc" width="5%">排序</th>
@@ -46,7 +47,10 @@
                             <a href="#">{{$v->conf_title}}</a>
                         </td>
                         <td>{{$v->conf_name}}</td>
-                        <td>{!! $v->_html !!}</td>
+                        <td>
+                            <input type="hidden" name="conf_id[]" value="{{$v->conf_id}}">
+                            {!! $v->_html !!}
+                        </td>
                         <td>
                             <a href="{{url('admin/config/'.$v->conf_id.'/edit')}}">修改</a>
                             <a href="javascript:;" onclick="delnav({{$v->conf_id}})">删除</a>
@@ -54,16 +58,13 @@
                     </tr>
                     @endforeach
                 </table>
-
-
-
-
-
-
-
+                    <div class="btn_group">
+                        <input type="submit" value="提交">
+                        <input type="button" class="back" onclick="history.go(-1)" value="返回" >
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
     <!--搜索结果页面 列表 结束-->
 <script>
     function changeOrder(obj,conf_id){

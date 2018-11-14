@@ -40,4 +40,6 @@ Route::group(['middleware'=>['admin.login'],'prefix'=>'admin','namespace'=>'Admi
 
     Route::resource('config','ConfigController');
     Route::post('config/changeorder','ConfigController@changeOrder');
+    Route::post('config/content','ConfigController@changeContent');
+    Route::get('config/putf','ConfigController@putFile');
 });
